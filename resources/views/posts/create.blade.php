@@ -1,21 +1,20 @@
+  
 @extends('layouts.app')
 
-@section('content');
-
+@section('content')
     <h1>Create Post</h1>
-    
-    <form action="{{ action('PostsController@store') }}" method="POST">
-        <input name="_token" type="hidden" value="{{ csrf_token() }}" >
+    {!! Form::open(['action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
-            @csrf            
-            <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" placeholder="Title"/>
+            {{Form::label('title', 'Title')}}
+            {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}
         </div>
         <div class="form-group">
-            <label for="body">Body</label>
-            <textarea class="form-control" name="body" cols="30" rows="10" placeholder="Body Text"></textarea>
+            {{Form::label('body', 'Body')}}
+            {{Form::textarea('body', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Body Text'])}}
         </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
- </form>
+        <div class="form-group">
+            {{Form::file('cover_image')}}
+        </div>
+        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+    {!! Form::close() !!}
 @endsection
